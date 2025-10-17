@@ -239,16 +239,6 @@ body.page-loginhubs {
   width: 100%;
   max-width: 900px;
 }
-
-.page-auth main::before { /* Pseudo-elemento para o Logo 'I' */
-  content: 'I';
-  font-size: 15rem;
-  font-weight: 900;
-  color: var(--color-text-light);
-  text-shadow: 0 4px 10px rgba(0,0,0,0.3);
-  position: relative;
-  display: block;
-}
 .page-auth main::before::before { /* Pseudo-elemento para o triângulo */
     content: '';
     position: absolute;
