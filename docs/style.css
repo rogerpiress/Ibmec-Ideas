@@ -209,24 +209,29 @@ body.page-index footer div a {
 
 /* === FUNDO ESPECÍFICO PARA LOGIN E CADASTRO=== */
 body.page-auth {
-  background: url('https://i.ibb.co/BHWF0qSC/Login-Page.png') no-repeat center center fixed;
-  background-size: 120%;
-  background-position: center;
-  background-attachment: fixed;
+  /* Use a responsive cover background, prefer local image if available, and avoid 'fixed' on mobile for performance */
+  background-image: url('https://i.ibb.co/BHWF0qSC/Login-Page.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover; /* cover ensures full coverage on most viewports */
+  background-color: var(--color-primary-dark); /* fallback color while image loads */
   color: var(--color-text-light);
+  display: grid;
   place-items: center;
 }
 
 /* === FUNDO ESPECÍFICO PARA LOGIN HUBS === */
 body.page-loginhubs {
-  background: url('https://i.ibb.co/xK1knfrB/Login-Page-Hubs.png') no-repeat center center fixed;
-  background-size: 120%;
-  background-position: center;
-  background-attachment: fixed;
+  /* Responsive hub login background: prefer cover and avoid fixed attachment on small screens */
+  background-image: url('https://i.ibb.co/xK1knfrB/Login-Page-Hubs.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-color: var(--color-primary-dark);
   color: var(--color-text-light);
   display: grid;
   place-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .page-auth header { display: none; } /* O Título H1 não está visível no design */
@@ -239,6 +244,7 @@ body.page-loginhubs {
   width: 100%;
   max-width: 900px;
 }
+
 .page-auth main::before::before { /* Pseudo-elemento para o triângulo */
     content: '';
     position: absolute;
@@ -250,6 +256,27 @@ body.page-loginhubs {
     border-left: 40px solid transparent;
     border-right: 40px solid transparent;
     border-bottom: 50px solid var(--color-secondary);
+}
+
+/* Reduce or hide oversized pseudo-logo on smaller screens to avoid overflow and accessibility issues */
+@media (max-width: 900px) {
+  .page-auth main::before {
+    font-size: 8rem;
+    opacity: 0.25;
+  }
+  .page-auth main::before::before {
+    top: -12px;
+    border-left: 24px solid transparent;
+    border-right: 24px solid transparent;
+    border-bottom: 30px solid var(--color-secondary);
+  }
+}
+
+@media (max-width: 480px) {
+  /* On very small screens, remove the pseudo logo entirely to prioritize form readability */
+  .page-auth main::before {
+    display: none;
+  }
 }
 
 
@@ -302,12 +329,28 @@ body.page-loginhubs {
 }
 
 body.page-loginhubs main::before { /* Troca a logo */
-  content: ''; /* Remove o 'I' */
-  background-image: url('URL_DA_IMAGEM_DO_CEREBRO'); /* Substituir pela imagem do cérebro poligonal */
+  content: '';
+  background-image: url('URL_DA_IMAGEM_DO_CEREBRO'); /* substituir pela imagem do cérebro poligonal */
   background-size: contain;
   background-repeat: no-repeat;
-  width: 250px;
-  height: 250px;
+  width: 220px;
+  height: 220px;
+  display: block;
+  margin-bottom: var(--spacing-lg);
+}
+
+/* Make sure the loginhubs logo isn't too large on mobile */
+@media (max-width: 600px) {
+  body.page-loginhubs main::before {
+    width: 140px;
+    height: 140px;
+    background-size: contain;
+    margin-bottom: var(--spacing-md);
+  }
+  body.page-loginhubs {
+    background-attachment: scroll; /* avoid fixed backgrounds on mobile for performance */
+    background-position: top center;
+  }
 }
 
 
